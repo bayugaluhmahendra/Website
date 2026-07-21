@@ -1,163 +1,153 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#000;
-    font-family:Arial,Helvetica,sans-serif;
+width:100%;
+height:100%;
+overflow:hidden;
+background:#000;
+font-family:Arial,Helvetica,sans-serif;
 }
 
-#bgVideo{
-    position:fixed;
-    top:50%;
-    left:50%;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transform:translate(-50%,-50%) scale(1);
-    animation:zoom 10s ease-in-out infinite alternate;
-    filter:saturate(1.2) contrast(1.08) brightness(.9);
+/* VIDEO */
+
+#video{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(.8) contrast(1.15) saturate(1.15);
+animation:zoom 12s ease-in-out infinite alternate;
+z-index:1;
 }
 
 @keyframes zoom{
-    from{
-        transform:translate(-50%,-50%) scale(1);
-    }
-    to{
-        transform:translate(-50%,-50%) scale(1.08);
-    }
+0%{
+transform:scale(1);
 }
+100%{
+transform:scale(1.08);
+}
+}
+
+/* OVERLAY */
 
 #overlay{
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle at center,
-    rgba(180,0,255,.15),
-    rgba(0,0,0,.55));
-    pointer-events:none;
+position:fixed;
+inset:0;
+background:
+linear-gradient(
+rgba(0,0,0,.15),
+rgba(0,0,0,.55)
+);
+z-index:2;
 }
 
+/* FLASH */
+
 #flash{
-    position:fixed;
-    inset:0;
-    background:#fff;
-    opacity:0;
-    pointer-events:none;
+position:fixed;
+inset:0;
+background:white;
+opacity:0;
+pointer-events:none;
+z-index:20;
 }
 
 .flash{
-    animation:flash .18s linear;
+animation:flash .15s;
 }
 
 @keyframes flash{
-    0%{opacity:.95;}
-    100%{opacity:0;}
+0%{
+opacity:.8;
+}
+100%{
+opacity:0;
+}
 }
 
+/* PARTICLES */
+
 #particles{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:5;
 }
 
 .particle{
-    position:absolute;
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:#ff4dff;
-    box-shadow:0 0 12px #ff00ff;
-    animation:float linear forwards;
+position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+background:#b300ff;
+box-shadow:0 0 15px #ff00ff;
+animation:fly linear forwards;
 }
 
-@keyframes float{
-    from{
-        transform:translateY(100vh);
-        opacity:0;
-    }
-    20%{
-        opacity:1;
-    }
-    to{
-        transform:translateY(-120vh);
-        opacity:0;
-    }
+@keyframes fly{
+
+from{
+transform:translateY(100vh);
+opacity:0;
 }
 
-#loader{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    color:#fff;
+20%{
+opacity:1;
 }
 
-.loader-circle{
-    width:60px;
-    height:60px;
-    border:5px solid rgba(255,255,255,.2);
-    border-top:5px solid #a000ff;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    margin-bottom:15px;
+to{
+transform:translateY(-120vh);
+opacity:0;
 }
 
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
 }
 
-#content{
-    position:fixed;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    color:#fff;
-    z-index:20;
+/* TAP SCREEN */
+
+#startScreen{
+position:fixed;
+inset:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,.25);
+backdrop-filter:blur(2px);
+z-index:50;
+transition:.8s;
 }
 
-.title{
-    font-size:48px;
-    text-shadow:0 0 20px #b000ff;
-    letter-spacing:3px;
+#startScreen.hide{
+opacity:0;
+visibility:hidden;
 }
 
-.subtitle{
-    margin-top:15px;
-    font-size:18px;
-    opacity:.8;
-    animation:blink 1s infinite;
+#startScreen h1{
+font-size:52px;
+color:white;
+letter-spacing:5px;
+text-shadow:
+0 0 10px #8a2be2,
+0 0 25px #8a2be2,
+0 0 50px #8a2be2;
+}
+
+#startScreen p{
+margin-top:15px;
+font-size:18px;
+color:white;
+animation:blink 1s infinite;
 }
 
 @keyframes blink{
-    50%{
-        opacity:.2;
-    }
+50%{
+opacity:.3;
 }
-
-.shake{
-    animation:shake .25s;
-}
-
-@keyframes shake{
-    0%{transform:translate(0,0);}
-    25%{transform:translate(-4px,2px);}
-    50%{transform:translate(4px,-2px);}
-    75%{transform:translate(-2px,4px);}
-    100%{transform:translate(0,0);}
 }
