@@ -2,45 +2,34 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Anime Edit</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>Anime Player V4</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
-<!-- Rotate -->
-<div id="rotate">
-
-<div class="phone">📱</div>
-
-<h1>Rotate Your Phone</h1>
-
-<p>Landscape Mode Recommended</p>
-
+<!-- Rotate Screen -->
+<div id="rotateScreen">
+    <div class="phone">📱</div>
+    <h1>Rotate Your Phone</h1>
+    <p>Putar perangkat ke mode Landscape</p>
 </div>
 
-<!-- Start -->
-<div id="start">
-
-<h1>ANIME EDIT</h1>
-
-<p>Tap Anywhere</p>
-
+<!-- Start Screen -->
+<div id="startScreen">
+    <h1>ANIME EDIT</h1>
+    <p>Tap Anywhere</p>
 </div>
 
 <!-- Video -->
-
 <video
-id="video"
-playsinline
-preload="auto"
-loop>
-
-<source src="video.mp4" type="video/mp4">
-
+    id="video"
+    preload="auto"
+    playsinline
+    webkit-playsinline
+    loop>
+    <source src="video.mp4" type="video/mp4">
 </video>
 
 <div id="overlay"></div>
