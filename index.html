@@ -2,12 +2,9 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime Player</title>
 
-<title>Anime Player V6</title>
-
-<link rel="preconnect" href="https://vjs.zencdn.net">
 <link href="https://vjs.zencdn.net/8.23.4/video-js.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -16,44 +13,30 @@ content="width=device-width,initial-scale=1,viewport-fit=cover">
 
 <!-- Loading -->
 <div id="loading">
-    <div class="loader">
-        <div class="logo">ANIME EDIT</div>
-
-        <div class="progress">
-            <div class="bar"></div>
-        </div>
-
-        <span id="percent">0%</span>
+    <h1>ANIME EDIT</h1>
+    <div class="progress">
+        <div class="bar"></div>
     </div>
+    <span id="percent">0%</span>
 </div>
 
-<!-- Rotate -->
-<div id="rotate">
-    <div class="phone">📱</div>
-    <h2>Rotate Your Phone</h2>
-    <p>Landscape Mode Recommended</p>
-</div>
-
-<!-- Start -->
+<!-- Tap Anywhere -->
 <div id="start">
     <h1>ANIME EDIT</h1>
     <p>Tap Anywhere</p>
 </div>
 
-<!-- Player -->
+<!-- Video -->
 <div class="player">
-
-<video
-id="player"
-class="video-js vjs-default-skin"
-controls
-playsinline
-preload="auto">
-
-<source src="video.mp4" type="video/mp4">
-
-</video>
-
+    <video
+        id="player"
+        class="video-js"
+        controls
+        preload="auto"
+        playsinline
+        webkit-playsinline>
+        <source src="video.mp4" type="video/mp4">
+    </video>
 </div>
 
 <!-- Overlay -->
