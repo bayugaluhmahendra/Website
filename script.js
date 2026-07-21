@@ -1,12 +1,4 @@
-// Video.js
-const player = videojs('player', {
-    controls: true,
-    autoplay: false,
-    preload: "auto",
-    responsive: true,
-    fluid: false
-});
-
+   const video = document.getElementById("video");
 const loading = document.getElementById("loading");
 const start = document.getElementById("start");
 const bar = document.querySelector(".bar");
@@ -19,30 +11,30 @@ let started = false;
    LOADING
 =========================== */
 
-let value = 0;
+let progress = 0;
 
-const loader = setInterval(() => {
+const loadingTimer = setInterval(() => {
 
-    value++;
+    progress++;
 
-    bar.style.width = value + "%";
-    percent.textContent = value + "%";
+    bar.style.width = progress + "%";
+    percent.innerText = progress + "%";
 
-    if(value >= 100){
+    if(progress >= 100){
 
-        clearInterval(loader);
+        clearInterval(loadingTimer);
 
         loading.classList.add("hide");
 
     }
 
-},20);
+},15);
 
 /* ===========================
-   TAP ANYWHERE
+   START PLAYER
 =========================== */
 
-document.addEventListener("click", async () => {
+async function startVideo(){
 
     if(started) return;
 
@@ -52,7 +44,7 @@ document.addEventListener("click", async () => {
 
     try{
 
-        await player.play();
+        await video.play();
 
     }catch(err){
 
@@ -60,26 +52,37 @@ document.addEventListener("click", async () => {
 
     }
 
-},{once:true});
+    // Fullscreen jika browser mengizinkan
+    if(document.documentElement.requestFullscreen){
+
+        try{
+            await document.documentElement.requestFullscreen();
+        }catch(e){}
+
+    }
+
+}
+
+document.addEventListener("click", startVideo, {once:true});
 
 /* ===========================
    PARTICLES
 =========================== */
 
-function createParticle(){
+function particle(){
 
     const p = document.createElement("div");
 
-    p.className="particle";
+    p.className = "particle";
 
     const size = Math.random()*5+3;
 
-    p.style.width=size+"px";
-    p.style.height=size+"px";
+    p.style.width = size+"px";
+    p.style.height = size+"px";
 
-    p.style.left=Math.random()*window.innerWidth+"px";
+    p.style.left = Math.random()*window.innerWidth+"px";
 
-    p.style.animationDuration=(4+Math.random()*5)+"s";
+    p.style.animationDuration = (4+Math.random()*5)+"s";
 
     particles.appendChild(p);
 
@@ -91,7 +94,19 @@ function createParticle(){
 
 }
 
-setInterval(createParticle,180);
+setInterval(particle,150);
+
+/* ===========================
+   LOOP
+=========================== */
+
+video.addEventListener("ended",()=>{
+
+    video.currentTime = 0;
+
+    video.play();
+
+});
 
 /* ===========================
    RESIZE
@@ -99,29 +114,29 @@ setInterval(createParticle,180);
 
 window.addEventListener("resize",()=>{
 
-    player.currentWidth(window.innerWidth);
-    player.currentHeight(window.innerHeight);
+    video.style.width = window.innerWidth+"px";
+    video.style.height = window.innerHeight+"px";
 
 });
 
 /* ===========================
-   TAB BACKGROUND
+   TAB
 =========================== */
 
 document.addEventListener("visibilitychange",()=>{
 
     if(document.hidden){
 
-        player.pause();
+        video.pause();
 
     }else{
 
         if(started){
 
-            player.play().catch(()=>{});
+            video.play().catch(()=>{});
 
         }
 
     }
 
-});             
+});
