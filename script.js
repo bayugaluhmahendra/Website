@@ -1,27 +1,24 @@
-// ===============================
-// CLOCK
-// ===============================
+// ===========================
+// JAM & TANGGAL
+// ===========================
 
 const clock = document.getElementById("clock");
 const date = document.getElementById("date");
 
-function updateClock(){
+function updateClock() {
 
-const now = new Date();
+    const now = new Date();
 
-clock.innerHTML = now.toLocaleTimeString("id-ID");
+    clock.textContent = now.toLocaleTimeString("id-ID", {
+        hour12: false
+    });
 
-date.innerHTML = now.toLocaleDateString("id-ID",{
-
-weekday:"long",
-
-day:"numeric",
-
-month:"long",
-
-year:"numeric"
-
-});
+    date.textContent = now.toLocaleDateString("id-ID", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
 
 }
 
@@ -29,150 +26,106 @@ updateClock();
 
 setInterval(updateClock,1000);
 
-// ===============================
-// PARTICLES
-// ===============================
+// ===========================
+// PARTIKEL
+// ===========================
 
 const particles = document.getElementById("particles");
 
-for(let i=0;i<80;i++){
+for(let i=0;i<70;i++){
 
-const p=document.createElement("div");
+    const p=document.createElement("div");
 
-p.className="spark";
+    p.className="spark";
 
-p.style.left=Math.random()*100+"vw";
+    p.style.left=Math.random()*100+"vw";
 
-p.style.animationDuration=(5+Math.random()*8)+"s";
+    p.style.top=Math.random()*100+"vh";
 
-p.style.animationDelay=Math.random()*5+"s";
+    p.style.animationDuration=(6+Math.random()*8)+"s";
 
-p.style.opacity=Math.random();
+    p.style.animationDelay=Math.random()*5+"s";
 
-particles.appendChild(p);
+    p.style.opacity=Math.random();
+
+    particles.appendChild(p);
 
 }
 
-// ===============================
-// MUSIC
-// ===============================
+// ===========================
+// MUSIK
+// ===========================
 
+const btn=document.getElementById("enter");
 const music=document.getElementById("music");
 
-const enter=document.getElementById("enter");
+btn.addEventListener("click",()=>{
 
-enter.onclick=()=>{
+    music.play().catch(()=>{});
 
-music.play().catch(()=>{});
+    btn.innerHTML="WELCOME";
 
-enter.innerHTML="WELCOME";
+    btn.disabled=true;
 
-enter.style.transform="scale(.95)";
+});
 
-setTimeout(()=>{
-
-enter.style.transform="scale(1)";
-
-},300);
-
-}
-
-// ===============================
-// PARALLAX
-// ===============================
+// ===========================
+// PARALLAX (Laptop)
+// ===========================
 
 document.addEventListener("mousemove",(e)=>{
 
-const x=(e.clientX/window.innerWidth-.5)*20;
+    const hero=document.querySelector(".hero");
 
-const y=(e.clientY/window.innerHeight-.5)*20;
+    const x=(e.clientX/window.innerWidth-.5)*12;
 
-document.querySelector(".hero").style.transform=
+    const y=(e.clientY/window.innerHeight-.5)*12;
 
-`translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`;
+    hero.style.transform=
+    `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
 
 });
 
-// ===============================
-// TOUCH EFFECT
-// ===============================
+// ===========================
+// TOUCH EFFECT (HP)
+// ===========================
 
 document.addEventListener("touchmove",(e)=>{
 
-const t=e.touches[0];
+    const hero=document.querySelector(".hero");
 
-const x=(t.clientX/window.innerWidth-.5)*10;
+    const t=e.touches[0];
 
-const y=(t.clientY/window.innerHeight-.5)*10;
+    const x=(t.clientX/window.innerWidth-.5)*8;
 
-document.querySelector(".hero").style.transform=
+    const y=(t.clientY/window.innerHeight-.5)*8;
 
-`translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`;
+    hero.style.transform=
+    `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
 
 });
 
-// ===============================
-// VIDEO ZOOM
-// ===============================
+// ===========================
+// GLOW ANIMATION
+// ===========================
+
+setInterval(()=>{
+
+    const hero=document.querySelector(".hero");
+
+    hero.style.boxShadow=
+    `0 0 ${25+Math.random()*25}px rgba(180,0,255,.45)`;
+
+},1000);
+
+// ===========================
+// VIDEO PLAYBACK SAFETY
+// ===========================
 
 const video=document.getElementById("bgVideo");
 
-let scale=1;
+video.play().catch(()=>{
 
-setInterval(()=>{
-
-scale+=0.0002;
-
-if(scale>1.08) scale=1;
-
-video.style.transform=`translate(-50%,-50%) scale(${scale})`;
-
-},30);
-
-// ===============================
-// HERO FADE
-// ===============================
-
-window.onload=()=>{
-
-const hero=document.querySelector(".hero");
-
-hero.style.opacity="0";
-
-hero.style.transition="1.2s";
-
-setTimeout(()=>{
-
-hero.style.opacity="1";
-
-},100);
-
-};
-
-// ===============================
-// RANDOM GLOW
-// ===============================
-
-setInterval(()=>{
-
-const h=document.querySelector(".hero");
-
-h.style.boxShadow=`0 0 ${20+Math.random()*50}px rgba(180,0,255,.45)`;
-
-},800);
-
-// ===============================
-// ENTER ANIMATION
-// ===============================
-
-enter.addEventListener("mouseenter",()=>{
-
-enter.style.boxShadow="0 0 40px #ff00ff";
-
-});
-
-enter.addEventListener("mouseleave",()=>{
-
-enter.style.boxShadow="0 0 20px #ff00ff";
+    console.log("Browser menunggu interaksi pengguna untuk memutar video.");
 
 });
