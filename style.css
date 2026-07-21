@@ -1,30 +1,19 @@
-/* ===========================
-   RESET
-=========================== */
+/* RESET */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-:root{
-    --bg:#000;
-    --text:#fff;
-    --accent:#9d4edd;
-}
-
 html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-    background:var(--bg);
+    background:#000;
     font-family:Arial,Helvetica,sans-serif;
 }
 
-/* ===========================
-   VIDEO
-=========================== */
-
+/* PLAYER */
 .player{
     position:fixed;
     inset:0;
@@ -36,7 +25,7 @@ html,body{
 
 .video-js{
     width:100vw !important;
-    height:100dvh !important;
+    height:100vh !important;
     background:#000;
 }
 
@@ -45,9 +34,7 @@ html,body{
     object-position:center;
 }
 
-/* ===========================
-   LOADING
-=========================== */
+/* LOADING */
 
 #loading{
     position:fixed;
@@ -56,7 +43,8 @@ html,body{
     display:flex;
     justify-content:center;
     align-items:center;
-    z-index:99999;
+    flex-direction:column;
+    z-index:9999;
     transition:.5s;
 }
 
@@ -65,177 +53,161 @@ html,body{
     visibility:hidden;
 }
 
-.loader{
-    width:320px;
-    text-align:center;
-}
-
-.logo{
-    color:#fff;
-    font-size:40px;
-    font-weight:bold;
+#loading h1{
+    color:white;
+    font-size:48px;
     margin-bottom:25px;
-    text-shadow:
-        0 0 15px var(--accent),
-        0 0 35px var(--accent);
+    text-shadow:0 0 20px #8a2be2;
 }
 
 .progress{
-    width:100%;
+
+    width:280px;
     height:8px;
-    border-radius:999px;
     background:#222;
+    border-radius:20px;
     overflow:hidden;
+
 }
 
 .bar{
+
     width:0%;
     height:100%;
-    background:linear-gradient(90deg,#7b2cbf,#c77dff);
-    transition:width .2s;
+    background:#9d4edd;
+    transition:.2s;
+
 }
 
 #percent{
-    display:block;
-    margin-top:12px;
-    color:#fff;
+
+    margin-top:10px;
+    color:white;
+
 }
 
-/* ===========================
-   START SCREEN
-=========================== */
+/* START */
 
 #start{
+
     position:fixed;
     inset:0;
+
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:rgba(0,0,0,.35);
+    flex-direction:column;
+
+    background:rgba(0,0,0,.30);
     backdrop-filter:blur(3px);
-    z-index:9990;
-    transition:.4s;
+
+    z-index:9998;
+
+    transition:.5s;
+
 }
 
 #start.hide{
+
     opacity:0;
     visibility:hidden;
+
 }
 
 #start h1{
-    color:#fff;
-    font-size:60px;
-    letter-spacing:4px;
-    text-shadow:0 0 20px var(--accent);
+
+    color:white;
+    font-size:58px;
+    text-shadow:0 0 20px #8a2be2;
+
 }
 
 #start p{
-    margin-top:15px;
-    color:#fff;
+
+    margin-top:20px;
+    color:white;
     animation:blink 1s infinite;
+
 }
 
 @keyframes blink{
-    50%{opacity:.3;}
+
+50%{
+
+opacity:.3;
+
 }
 
-/* ===========================
-   ROTATE
-=========================== */
-
-#rotate{
-    position:fixed;
-    inset:0;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background:#000;
-    color:#fff;
-    z-index:99998;
 }
 
-.phone{
-    font-size:90px;
-    animation:rotatePhone 2s infinite ease-in-out;
-}
-
-@keyframes rotatePhone{
-    0%{transform:rotate(0deg);}
-    50%{transform:rotate(90deg);}
-    100%{transform:rotate(0deg);}
-}
-
-/* ===========================
-   OVERLAY
-=========================== */
+/* OVERLAY */
 
 #overlay{
-    position:fixed;
-    inset:0;
-    background:linear-gradient(
-        rgba(0,0,0,.15),
-        rgba(0,0,0,.45)
-    );
-    pointer-events:none;
-    z-index:5;
+
+position:fixed;
+inset:0;
+
+background:linear-gradient(
+rgba(0,0,0,.10),
+rgba(0,0,0,.40)
+);
+
+pointer-events:none;
+
 }
 
-/* ===========================
-   PARTICLES
-=========================== */
+/* PARTICLES */
 
 #particles{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:6;
+
+position:fixed;
+inset:0;
+
+overflow:hidden;
+
+pointer-events:none;
+
 }
 
 .particle{
-    position:absolute;
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:#c77dff;
-    box-shadow:0 0 15px #c77dff;
-    animation:float linear forwards;
+
+position:absolute;
+
+width:5px;
+height:5px;
+
+border-radius:50%;
+
+background:#c77dff;
+
+box-shadow:0 0 15px #c77dff;
+
+animation:float linear forwards;
+
 }
 
 @keyframes float{
-    from{
-        transform:translateY(110vh);
-        opacity:0;
-    }
 
-    20%{
-        opacity:1;
-    }
+0%{
 
-    to{
-        transform:translateY(-120vh);
-        opacity:0;
-    }
-}
+transform:translateY(100vh);
 
-/* ===========================
-   RESPONSIVE
-=========================== */
-
-@media (orientation:portrait){
-
-    #rotate{
-        display:flex;
-    }
+opacity:0;
 
 }
 
-@media (orientation:landscape){
+20%{
 
-    #rotate{
-        display:none;
-    }
+opacity:1;
+
+}
+
+100%{
+
+transform:translateY(-120vh);
+
+opacity:0;
+
+}
 
 }
