@@ -2,34 +2,50 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<title>Anime Player V5</title>
+<title>Anime Player V6</title>
 
+<link rel="preconnect" href="https://vjs.zencdn.net">
 <link href="https://vjs.zencdn.net/8.23.4/video-js.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- Rotate Screen -->
-<div id="rotateScreen">
-    <div class="phone">📱</div>
-    <h1>Rotate Your Phone</h1>
-    <p>Best Experience in Landscape</p>
+<!-- Loading -->
+<div id="loading">
+    <div class="loader">
+        <div class="logo">ANIME EDIT</div>
+
+        <div class="progress">
+            <div class="bar"></div>
+        </div>
+
+        <span id="percent">0%</span>
+    </div>
 </div>
 
-<!-- Start Screen -->
-<div id="startScreen">
+<!-- Rotate -->
+<div id="rotate">
+    <div class="phone">📱</div>
+    <h2>Rotate Your Phone</h2>
+    <p>Landscape Mode Recommended</p>
+</div>
+
+<!-- Start -->
+<div id="start">
     <h1>ANIME EDIT</h1>
     <p>Tap Anywhere</p>
 </div>
 
-<!-- Video -->
-<div class="video-wrapper">
+<!-- Player -->
+<div class="player">
 
 <video
 id="player"
-class="video-js vjs-big-play-centered"
+class="video-js vjs-default-skin"
 controls
 playsinline
 preload="auto">
