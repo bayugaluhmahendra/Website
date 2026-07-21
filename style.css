@@ -50,27 +50,6 @@ z-index:2;
 
 /* FLASH */
 
-#flash{
-position:fixed;
-inset:0;
-background:white;
-opacity:0;
-pointer-events:none;
-z-index:20;
-}
-
-.flash{
-animation:flash .15s;
-}
-
-@keyframes flash{
-0%{
-opacity:.8;
-}
-100%{
-opacity:0;
-}
-}
 
 /* PARTICLES */
 
