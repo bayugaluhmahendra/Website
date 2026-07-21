@@ -46,19 +46,7 @@ video.addEventListener("ended", () => {
 });
 
 // Flash acak
-setInterval(() => {
 
-    if (Math.random() > 0.65) {
-
-        flash.classList.add("flash");
-
-        setTimeout(() => {
-            flash.classList.remove("flash");
-        }, 150);
-
-    }
-
-}, 500);
 
 // Partikel
 function createParticle() {
