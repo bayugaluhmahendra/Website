@@ -2,7 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Anime Edit</title>
 
 <link rel="stylesheet" href="style.css">
@@ -10,44 +11,41 @@
 </head>
 <body>
 
-<!-- Rotate Screen -->
-<div id="rotateScreen">
-    <div class="phone">
-        📱
-    </div>
+<!-- Rotate -->
+<div id="rotate">
 
-    <h1>Rotate Your Phone</h1>
-    <p>Best Experience in Landscape Mode</p>
+<div class="phone">📱</div>
+
+<h1>Rotate Your Phone</h1>
+
+<p>Landscape Mode Recommended</p>
+
+</div>
+
+<!-- Start -->
+<div id="start">
+
+<h1>ANIME EDIT</h1>
+
+<p>Tap Anywhere</p>
+
 </div>
 
 <!-- Video -->
-<video id="video" preload="auto" playsinline>
-    <source src="video.mp4" type="video/mp4">
+
+<video
+id="video"
+playsinline
+preload="auto"
+loop>
+
+<source src="video.mp4" type="video/mp4">
+
 </video>
 
-<!-- Music -->
-<audio id="music" preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<!-- Overlay -->
 <div id="overlay"></div>
 
-<!-- Particles -->
 <div id="particles"></div>
-
-<!-- Start Screen -->
-<div id="start">
-
-<h1 class="logo">
-ANIME EDIT
-</h1>
-
-<p class="tap">
-Tap Anywhere
-</p>
-
-</div>
 
 <script src="script.js"></script>
 
