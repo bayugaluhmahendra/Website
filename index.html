@@ -5,33 +5,78 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Beautiful Woman</title>
+<title>Anime Live Wallpaper</title>
 
 <link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
+<!-- VIDEO BACKGROUND -->
+
+<video id="bgVideo"
+autoplay
+muted
+loop
+playsinline>
+
+<source src="video.mp4" type="video/mp4">
+
+</video>
+
 <div class="overlay"></div>
+
+<!-- PARTICLES -->
+
+<div id="particles"></div>
+
+<!-- CONTENT -->
 
 <div class="hero">
 
-<h1>Beautiful Woman</h1>
+<h1>
+
+ANIME LIVE WALLPAPER
+
+</h1>
 
 <p>
-Elegance • Beauty • Cinematic
+
+Cyberpunk • Purple • Live Background
+
 </p>
 
-<button id="play">
-Masuk
+<div id="clock">
+
+00:00:00
+
+</div>
+
+<div id="date">
+
+Loading...
+
+</div>
+
+<button id="enter">
+
+ENTER
+
 </button>
 
 </div>
 
-<audio id="bgm" loop>
+<!-- MUSIC -->
+
+<audio id="music" loop>
 
 <source src="music.mp3" type="audio/mpeg">
 
