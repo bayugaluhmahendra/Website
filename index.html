@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>Live Wallpaper</title>
+<title>Anime Live Wallpaper</title>
 
 <link rel="stylesheet" href="style.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
@@ -20,31 +19,40 @@
 
 <body>
 
-<!-- VIDEO BACKGROUND -->
+<!-- Video Background -->
 
-<video id="bgVideo" autoplay muted loop playsinline preload="auto">
-    <source src="video.mp4" type="video/mp4">
+<video id="bgVideo"
+autoplay
+muted
+loop
+playsinline
+preload="auto">
+
+<source src="video.mp4" type="video/mp4">
+
 </video>
+
+<!-- Overlay -->
 
 <div class="overlay"></div>
 
-<!-- PARTICLES -->
+<!-- Floating Particles -->
 
 <div id="particles"></div>
 
-<!-- CONTENT -->
+<!-- Main Content -->
 
 <div class="hero">
 
-<h1>
+<div class="logo">
+⚡
+</div>
 
-ANIME LIVE WALLPAPER
+<h1>Anime Live Wallpaper</h1>
 
-</h1>
+<p class="subtitle">
 
-<p>
-
-Cyberpunk • Purple • Live Background
+Cyberpunk Purple Edition
 
 </p>
 
@@ -62,13 +70,13 @@ Loading...
 
 <button id="enter">
 
-ENTER
+Tap To Start
 
 </button>
 
 </div>
 
-<!-- MUSIC -->
+<!-- Audio -->
 
 <audio id="music" loop>
 
@@ -79,5 +87,4 @@ ENTER
 <script src="script.js"></script>
 
 </body>
-
 </html>
