@@ -130,3 +130,52 @@ animation:blink 1s infinite;
 opacity:.3;
 }
 }
+
+
+/* ROTATE SCREEN */
+
+#rotateScreen{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:#fff;
+    z-index:9999;
+    text-align:center;
+}
+
+.phoneIcon{
+    font-size:80px;
+    animation:rotatePhone 1.8s infinite ease-in-out;
+}
+
+@keyframes rotatePhone{
+    0%{transform:rotate(0deg);}
+    50%{transform:rotate(90deg);}
+    100%{transform:rotate(0deg);}
+}
+
+#rotateScreen h2{
+    margin-top:20px;
+    font-size:32px;
+}
+
+#rotateScreen p{
+    margin-top:10px;
+    opacity:.8;
+}
+
+@media (orientation:portrait){
+    #rotateScreen{
+        display:flex;
+    }
+}
+
+@media (orientation:landscape){
+    #rotateScreen{
+        display:none;
+    }
+}
