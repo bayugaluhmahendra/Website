@@ -1,28 +1,37 @@
-   const video = document.getElementById("video");
+const video = document.getElementById("video");
 const loading = document.getElementById("loading");
 const start = document.getElementById("start");
+
+const playBtn = document.getElementById("playBtn");
+const fullscreenBtn = document.getElementById("fullscreen");
+
+const seekBar = document.getElementById("seekBar");
+const seek = document.getElementById("seek");
+
+const time = document.getElementById("time");
+const particles = document.getElementById("particles");
+
 const bar = document.querySelector(".bar");
 const percent = document.getElementById("percent");
-const particles = document.getElementById("particles");
 
 let started = false;
 
-/* ===========================
-   LOADING
-=========================== */
+/* --------------------
+   Loading
+-------------------- */
 
-let progress = 0;
+let load = 0;
 
-const loadingTimer = setInterval(() => {
+const loadingAnim = setInterval(() => {
 
-    progress++;
+    load++;
 
-    bar.style.width = progress + "%";
-    percent.innerText = progress + "%";
+    bar.style.width = load + "%";
+    percent.innerText = load + "%";
 
-    if(progress >= 100){
+    if(load >= 100){
 
-        clearInterval(loadingTimer);
+        clearInterval(loadingAnim);
 
         loading.classList.add("hide");
 
@@ -30,11 +39,11 @@ const loadingTimer = setInterval(() => {
 
 },15);
 
-/* ===========================
-   START PLAYER
-=========================== */
+/* --------------------
+   Start
+-------------------- */
 
-async function startVideo(){
+async function startPlayer(){
 
     if(started) return;
 
@@ -46,43 +55,149 @@ async function startVideo(){
 
         await video.play();
 
-    }catch(err){
+    }catch(e){}
 
-        console.log(err);
+}
 
-    }
+document.addEventListener("click",startPlayer,{once:true});
 
-    // Fullscreen jika browser mengizinkan
-    if(document.documentElement.requestFullscreen){
+/* --------------------
+   Play Pause
+-------------------- */
 
-        try{
-            await document.documentElement.requestFullscreen();
-        }catch(e){}
+playBtn.onclick=()=>{
+
+    if(video.paused){
+
+        video.play();
+
+    }else{
+
+        video.pause();
 
     }
 
 }
 
-document.addEventListener("click", startVideo, {once:true});
+video.onplay=()=>{
 
-/* ===========================
-   PARTICLES
-=========================== */
+    playBtn.innerHTML="❚❚";
+
+}
+
+video.onpause=()=>{
+
+    playBtn.innerHTML="▶";
+
+}
+
+/* --------------------
+   Progress
+-------------------- */
+
+function format(sec){
+
+    let m=Math.floor(sec/60);
+
+    let s=Math.floor(sec%60);
+
+    if(s<10)s="0"+s;
+
+    return m+":"+s;
+
+}
+
+video.ontimeupdate=()=>{
+
+    let p=(video.currentTime/video.duration)*100;
+
+    seekBar.style.width=p+"%";
+
+    time.innerHTML=
+
+    format(video.currentTime)+" / "+format(video.duration);
+
+}
+
+/* --------------------
+   Seek
+-------------------- */
+
+seek.onclick=(e)=>{
+
+    const rect=seek.getBoundingClientRect();
+
+    const pos=(e.clientX-rect.left)/rect.width;
+
+    video.currentTime=video.duration*pos;
+
+}
+
+/* --------------------
+   Fullscreen
+-------------------- */
+
+fullscreen.onclick=()=>{
+
+    if(!document.fullscreenElement){
+
+        document.documentElement.requestFullscreen();
+
+    }else{
+
+        document.exitFullscreen();
+
+    }
+
+}
+
+/* --------------------
+   Auto Hide
+-------------------- */
+
+let hide;
+
+function showControls(){
+
+    controls.style.opacity="1";
+
+    clearTimeout(hide);
+
+    hide=setTimeout(()=>{
+
+        if(!video.paused){
+
+            controls.style.opacity="0";
+
+        }
+
+    },3000);
+
+}
+
+document.addEventListener("mousemove",showControls);
+
+document.addEventListener("touchstart",showControls);
+
+/* --------------------
+   Particle
+-------------------- */
 
 function particle(){
 
-    const p = document.createElement("div");
+    const p=document.createElement("div");
 
-    p.className = "particle";
+    p.className="particle";
 
-    const size = Math.random()*5+3;
+    const size=Math.random()*5+3;
 
-    p.style.width = size+"px";
-    p.style.height = size+"px";
+    p.style.width=size+"px";
 
-    p.style.left = Math.random()*window.innerWidth+"px";
+    p.style.height=size+"px";
 
-    p.style.animationDuration = (4+Math.random()*5)+"s";
+    p.style.left=Math.random()*100+"vw";
+
+    p.style.animationDuration=(5+Math.random()*5)+"s";
 
     particles.appendChild(p);
 
@@ -94,49 +209,4 @@ function particle(){
 
 }
 
-setInterval(particle,150);
-
-/* ===========================
-   LOOP
-=========================== */
-
-video.addEventListener("ended",()=>{
-
-    video.currentTime = 0;
-
-    video.play();
-
-});
-
-/* ===========================
-   RESIZE
-=========================== */
-
-window.addEventListener("resize",()=>{
-
-    video.style.width = window.innerWidth+"px";
-    video.style.height = window.innerHeight+"px";
-
-});
-
-/* ===========================
-   TAB
-=========================== */
-
-document.addEventListener("visibilitychange",()=>{
-
-    if(document.hidden){
-
-        video.pause();
-
-    }else{
-
-        if(started){
-
-            video.play().catch(()=>{});
-
-        }
-
-    }
-
-});
+setInterval(particle,180);
