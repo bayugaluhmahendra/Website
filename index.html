@@ -6,44 +6,50 @@
 <title>Anime Edit</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-<!-- VIDEO -->
-<video id="video" playsinline preload="auto">
+<!-- Rotate Screen -->
+<div id="rotateScreen">
+    <div class="phone">
+        📱
+    </div>
+
+    <h1>Rotate Your Phone</h1>
+    <p>Best Experience in Landscape Mode</p>
+</div>
+
+<!-- Video -->
+<video id="video" preload="auto" playsinline>
     <source src="video.mp4" type="video/mp4">
 </video>
 
-<!-- MUSIC -->
+<!-- Music -->
 <audio id="music" preload="auto">
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- OVERLAY -->
+<!-- Overlay -->
 <div id="overlay"></div>
 
-<!-- FLASH -->
-
-
-<!-- PARTICLES -->
+<!-- Particles -->
 <div id="particles"></div>
 
-<!-- TAP SCREEN -->
-<div id="startScreen">
+<!-- Start Screen -->
+<div id="start">
 
-<h1>ANIME EDIT</h1>
+<h1 class="logo">
+ANIME EDIT
+</h1>
 
-<p>Tap Anywhere</p>
+<p class="tap">
+Tap Anywhere
+</p>
 
 </div>
 
 <script src="script.js"></script>
 
-  <div id="rotateScreen">
-    <div class="phoneIcon">📱</div>
-    <h2>Rotate Your Phone</h2>
-    <p>Best viewed in landscape mode</p>
-  </div>  
-    
 </body>
 </html>
