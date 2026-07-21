@@ -1,77 +1,141 @@
 const video = document.getElementById("video");
-const start = document.getElementById("start");
-const rotate = document.getElementById("rotate");
+const startScreen = document.getElementById("startScreen");
+const rotateScreen = document.getElementById("rotateScreen");
 const particles = document.getElementById("particles");
 
 let started = false;
+let particleTimer = null;
 
-// Partikel
+/* =========================
+   START
+========================= */
+
+async function startPlayer() {
+
+    if (started) return;
+
+    started = true;
+
+    startScreen.classList.add("hide");
+
+    try {
+
+        await video.play();
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+}
+
+document.addEventListener("click", startPlayer, { once: true });
+
+/* =========================
+   ORIENTATION
+========================= */
+
+function isPortrait() {
+    return window.innerHeight > window.innerWidth;
+}
+
+function updateOrientation() {
+
+    if (isPortrait()) {
+
+        rotateScreen.style.display = "flex";
+
+        if (!video.paused) {
+            video.pause();
+        }
+
+    } else {
+
+        rotateScreen.style.display = "none";
+
+        if (started && video.paused) {
+            video.play().catch(() => {});
+        }
+
+    }
+
+}
+
+window.addEventListener("resize", () => {
+
+    clearTimeout(window.rotateTimer);
+
+    window.rotateTimer = setTimeout(updateOrientation, 200);
+
+});
+
+window.addEventListener("orientationchange", () => {
+
+    clearTimeout(window.rotateTimer);
+
+    window.rotateTimer = setTimeout(updateOrientation, 200);
+
+});
+
+updateOrientation();
+
+/* =========================
+   PARTICLES
+========================= */
+
 function createParticle() {
 
     const p = document.createElement("div");
 
     p.className = "particle";
 
-    p.style.left = Math.random() * window.innerWidth + "px";
-
     const size = Math.random() * 6 + 3;
 
     p.style.width = size + "px";
     p.style.height = size + "px";
 
-    p.style.animationDuration = (Math.random() * 4 + 4) + "s";
+    p.style.left = Math.random() * window.innerWidth + "px";
+
+    p.style.animationDuration = (4 + Math.random() * 4) + "s";
 
     particles.appendChild(p);
 
-    setTimeout(() => p.remove(), 8000);
+    p.addEventListener("animationend", () => {
+        p.remove();
+    });
 
 }
 
-setInterval(createParticle, 180);
+particleTimer = setInterval(createParticle, 150);
 
-// Mulai website
-async function startWebsite() {
+/* =========================
+   VIDEO
+========================= */
 
-    if (started) return;
+video.addEventListener("loadedmetadata", () => {
 
-    started = true;
+    video.currentTime = 0;
 
-    start.classList.add("hide");
+});
 
-    try {
+video.addEventListener("ended", () => {
 
-        await video.play();
+    video.currentTime = 0;
 
-    } catch (e) {
+    video.play().catch(() => {});
 
-        console.log(e);
+});
 
-    }
+document.addEventListener("visibilitychange", () => {
 
-}
+    if (document.hidden) {
 
-document.body.addEventListener("click", startWebsite);
-
-// Cek orientasi
-function updateOrientation() {
-
-    const portrait = window.matchMedia("(orientation: portrait)").matches;
-
-    if (portrait) {
-
-        rotate.style.display = "flex";
-
-        if (!video.paused) {
-
-            video.pause();
-
-        }
+        video.pause();
 
     } else {
 
-        rotate.style.display = "none";
-
-        if (started && video.paused) {
+        if (started && !isPortrait()) {
 
             video.play().catch(() => {});
 
@@ -79,13 +143,4 @@ function updateOrientation() {
 
     }
 
-}
-
-window.addEventListener("resize", updateOrientation);
-window.addEventListener("orientationchange", () => {
-
-    setTimeout(updateOrientation, 250);
-
 });
-
-updateOrientation();
