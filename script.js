@@ -129,3 +129,39 @@ video.play().catch(()=>{
     console.log("Browser menunggu interaksi pengguna untuk memutar video.");
 
 });
+
+// ===========================
+// LOADING
+// ===========================
+
+const loader=document.getElementById("loader");
+
+const fill=document.getElementById("loadingFill");
+
+let progress=0;
+
+const loading=setInterval(()=>{
+
+progress++;
+
+fill.style.width=progress+"%";
+
+if(progress>=100){
+
+clearInterval(loading);
+
+setTimeout(()=>{
+
+loader.style.opacity="0";
+
+setTimeout(()=>{
+
+loader.remove();
+
+},1000);
+
+},400);
+
+}
+
+},25);
