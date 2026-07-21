@@ -1,139 +1,127 @@
- const player = videojs('player', {
+// Video.js
+const player = videojs('player', {
     controls: true,
+    autoplay: false,
     preload: "auto",
-    fluid: true,
-    responsive: true
+    responsive: true,
+    fluid: false
 });
 
 const loading = document.getElementById("loading");
 const start = document.getElementById("start");
-const rotate = document.getElementById("rotate");
 const bar = document.querySelector(".bar");
 const percent = document.getElementById("percent");
 const particles = document.getElementById("particles");
 
 let started = false;
 
-/* Loading Animation */
-let p = 0;
+/* ===========================
+   LOADING
+=========================== */
 
-const loadingAnim = setInterval(() => {
+let value = 0;
 
-    p++;
+const loader = setInterval(() => {
 
-    bar.style.width = p + "%";
-    percent.textContent = p + "%";
+    value++;
 
-    if (p >= 100) {
+    bar.style.width = value + "%";
+    percent.textContent = value + "%";
 
-        clearInterval(loadingAnim);
+    if(value >= 100){
+
+        clearInterval(loader);
 
         loading.classList.add("hide");
 
     }
 
-}, 20);
+},20);
 
-/* Tap Anywhere */
+/* ===========================
+   TAP ANYWHERE
+=========================== */
 
 document.addEventListener("click", async () => {
 
-    if (started) return;
+    if(started) return;
 
     started = true;
 
     start.classList.add("hide");
 
-    try {
+    try{
 
         await player.play();
 
-    } catch (e) {}
+    }catch(err){
 
-}, { once: true });
-
-/* Rotate */
-
-function updateRotate() {
-
-    const landscape =
-        window.matchMedia("(orientation: landscape)").matches;
-
-    if (landscape) {
-
-        rotate.style.display = "none";
-
-        if (started && player.paused()) {
-
-            player.play().catch(() => {});
-
-        }
-
-    } else {
-
-        rotate.style.display = "flex";
-
-        if (!player.paused()) {
-
-            player.pause();
-
-        }
+        console.log(err);
 
     }
 
-}
+},{once:true});
 
-window.addEventListener("resize", updateRotate);
-window.addEventListener("orientationchange", () => {
+/* ===========================
+   PARTICLES
+=========================== */
 
-    setTimeout(updateRotate, 300);
-
-});
-
-updateRotate();
-
-/* Particles */
-
-function createParticle() {
+function createParticle(){
 
     const p = document.createElement("div");
 
-    p.className = "particle";
+    p.className="particle";
 
-    p.style.left = Math.random() * window.innerWidth + "px";
+    const size = Math.random()*5+3;
 
-    const size = Math.random() * 6 + 3;
+    p.style.width=size+"px";
+    p.style.height=size+"px";
 
-    p.style.width = size + "px";
-    p.style.height = size + "px";
+    p.style.left=Math.random()*window.innerWidth+"px";
 
-    p.style.animationDuration = (4 + Math.random() * 4) + "s";
+    p.style.animationDuration=(4+Math.random()*5)+"s";
 
     particles.appendChild(p);
 
-    p.addEventListener("animationend", () => p.remove());
+    p.addEventListener("animationend",()=>{
+
+        p.remove();
+
+    });
 
 }
 
-setInterval(createParticle, 180);
+setInterval(createParticle,180);
 
-/* Tab Visibility */
+/* ===========================
+   RESIZE
+=========================== */
 
-document.addEventListener("visibilitychange", () => {
+window.addEventListener("resize",()=>{
 
-    if (document.hidden) {
+    player.currentWidth(window.innerWidth);
+    player.currentHeight(window.innerHeight);
+
+});
+
+/* ===========================
+   TAB BACKGROUND
+=========================== */
+
+document.addEventListener("visibilitychange",()=>{
+
+    if(document.hidden){
 
         player.pause();
 
-    } else {
+    }else{
 
-        if (started &&
-            window.matchMedia("(orientation: landscape)").matches) {
+        if(started){
 
-            player.play().catch(() => {});
+            player.play().catch(()=>{});
 
         }
 
     }
 
-});   
+});             
