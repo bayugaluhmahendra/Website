@@ -165,3 +165,36 @@ loader.remove();
 }
 
 },25);
+
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsPanel = document.getElementById("settingsPanel");
+
+settingsBtn.onclick = () => {
+    settingsPanel.style.display =
+        settingsPanel.style.display === "block" ? "none" : "block";
+};
+
+const themes = {
+    "#9b5cff":["#9b5cff","#d56bff"],
+    "#4da3ff":["#4da3ff","#77d6ff"],
+    "#ff4d6d":["#ff4d6d","#ff8fa3"],
+    "#4dff88":["#4dff88","#98ffb8"]
+};
+
+document.querySelectorAll(".theme").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+
+        const color = btn.dataset.color;
+
+        document.documentElement.style.setProperty(
+            "--accent",
+            themes[color][0]
+        );
+
+        document.documentElement.style.setProperty(
+            "--accent2",
+            themes[color][1]
+        );
+
+    });
+});
