@@ -1,25 +1,59 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Anime Player</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Anime AMV</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-<video id="video" playsinline preload="auto">
-    <source src="video.mp4" type="video/mp4">
+<div id="loader">
+
+<div class="loader-circle"></div>
+
+<p>Loading...</p>
+
+</div>
+
+<video
+id="bgVideo"
+playsinline
+preload="auto">
+
+<source src="video.mp4" type="video/mp4">
+
 </video>
 
-<audio id="music" preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
+<audio
+id="bgMusic"
+preload="auto">
+
+<source src="music.mp3" type="audio/mpeg">
+
 </audio>
 
-<div class="overlay"></div>
+<div id="overlay"></div>
 
-<div id="start">
-    <button id="play">▶ TAP TO START</button>
+<div id="flash"></div>
+
+<div id="particles"></div>
+
+<div id="content">
+
+<h1 class="title">
+ANIME EDIT
+</h1>
+
+<p class="subtitle">
+Tap Anywhere
+</p>
+
 </div>
 
 <script src="script.js"></script>
