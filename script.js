@@ -1,20 +1,17 @@
-const video = document.getElementById("bgVideo");
-const music = document.getElementById("bgMusic");
-const loader = document.getElementById("loader");
+const video = document.getElementById("video");
+const music = document.getElementById("music");
+const startScreen = document.getElementById("startScreen");
 const flash = document.getElementById("flash");
 const particles = document.getElementById("particles");
-
-// Loading selesai
-window.addEventListener("load", () => {
-    setTimeout(() => {
-        loader.style.display = "none";
-    }, 1500);
-});
 
 // Mulai saat layar disentuh
 document.body.addEventListener("click", startPlayer, { once: true });
 
 async function startPlayer() {
+
+    // Hilangkan tampilan awal
+    startScreen.classList.add("hide");
+
     try {
 
         video.currentTime = 0;
@@ -23,15 +20,15 @@ async function startPlayer() {
         await video.play();
         await music.play();
 
-    } catch (e) {
-        console.log(e);
+    } catch (err) {
+        console.log(err);
     }
 }
 
-// Sinkronkan video dan musik
+// Sinkronisasi audio dan video
 setInterval(() => {
 
-    if (Math.abs(video.currentTime - music.currentTime) > 0.08) {
+    if (Math.abs(video.currentTime - music.currentTime) > 0.1) {
         music.currentTime = video.currentTime;
     }
 
@@ -48,17 +45,18 @@ video.addEventListener("ended", () => {
 
 });
 
-// Flash + Shake tiap 500ms
+// Flash acak
 setInterval(() => {
 
-    flash.classList.add("flash");
+    if (Math.random() > 0.65) {
 
-    document.body.classList.add("shake");
+        flash.classList.add("flash");
 
-    setTimeout(() => {
-        flash.classList.remove("flash");
-        document.body.classList.remove("shake");
-    }, 180);
+        setTimeout(() => {
+            flash.classList.remove("flash");
+        }, 150);
+
+    }
 
 }, 500);
 
@@ -71,11 +69,12 @@ function createParticle() {
 
     p.style.left = Math.random() * window.innerWidth + "px";
 
-    p.style.width = (4 + Math.random() * 8) + "px";
+    const size = Math.random() * 8 + 3;
 
-    p.style.height = p.style.width;
+    p.style.width = size + "px";
+    p.style.height = size + "px";
 
-    p.style.animationDuration = (4 + Math.random() * 4) + "s";
+    p.style.animationDuration = (Math.random() * 4 + 4) + "s";
 
     particles.appendChild(p);
 
