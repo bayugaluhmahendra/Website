@@ -12,78 +12,97 @@ html,body{
 
 width:100%;
 height:100%;
-
 overflow:hidden;
-
 font-family:'Poppins',sans-serif;
-
 background:#000;
 
 }
 
 /* =========================
-   VIDEO
+   VIDEO BACKGROUND
 ========================= */
 
 #bgVideo{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center;
-    z-index:-100;
-    background:#000;
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center center;
+z-index:-10;
+background:#000;
+
 }
 
 /* =========================
-   OVERLAY
+   DARK OVERLAY
 ========================= */
 
 .overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    z-index:-99;
+
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,.15),
+rgba(0,0,0,.55),
+rgba(0,0,0,.80)
+);
+
+backdrop-filter:blur(2px);
+
+z-index:-9;
+
 }
+
 /* =========================
    HERO
 ========================= */
 
 .hero{
 
-position:relative;
-z-index:10;
+position:absolute;
 
 top:50%;
-
 left:50%;
 
 transform:translate(-50%,-50%);
 
-width:90%;
+width:92%;
+max-width:600px;
 
-max-width:750px;
-
-padding:45px;
+padding:35px;
 
 border-radius:25px;
 
-background:rgba(255,255,255,.06);
+background:rgba(255,255,255,.08);
 
-backdrop-filter:blur(15px);
+backdrop-filter:blur(14px);
 
-border:1px solid rgba(255,255,255,.12);
+border:1px solid rgba(255,255,255,.15);
 
 box-shadow:
-
-0 0 25px rgba(180,0,255,.35),
-
-0 0 70px rgba(180,0,255,.18);
+0 0 25px rgba(140,0,255,.45);
 
 text-align:center;
 
-animation:fade 1.3s ease;
+animation:fade 1.2s ease;
+
+}
+
+/* ========================= */
+
+.logo{
+
+font-size:55px;
+
+margin-bottom:10px;
+
+filter:drop-shadow(0 0 20px #b000ff);
 
 }
 
@@ -91,33 +110,26 @@ animation:fade 1.3s ease;
 
 .hero h1{
 
-font-size:55px;
+font-size:42px;
 
 color:white;
 
-letter-spacing:4px;
-
 text-shadow:
+0 0 20px #d000ff;
 
-0 0 20px #ff00ff,
-
-0 0 50px #7b2cff;
-
-margin-bottom:15px;
+margin-bottom:10px;
 
 }
 
 /* ========================= */
 
-.hero p{
+.subtitle{
 
-font-size:20px;
+color:#ddd;
 
-color:#dddddd;
+letter-spacing:2px;
 
-letter-spacing:3px;
-
-margin-bottom:35px;
+margin-bottom:25px;
 
 }
 
@@ -125,7 +137,7 @@ margin-bottom:35px;
 
 #clock{
 
-font-size:70px;
+font-size:58px;
 
 font-weight:bold;
 
@@ -133,9 +145,8 @@ color:white;
 
 text-shadow:
 
-0 0 20px #b100ff,
-
-0 0 60px #ff00ff;
+0 0 15px #ff00ff,
+0 0 40px #8800ff;
 
 margin-bottom:10px;
 
@@ -145,11 +156,9 @@ margin-bottom:10px;
 
 #date{
 
-font-size:20px;
+color:#ddd;
 
-color:#dddddd;
-
-margin-bottom:35px;
+margin-bottom:30px;
 
 }
 
@@ -157,26 +166,23 @@ margin-bottom:35px;
 
 #enter{
 
-padding:18px 60px;
+padding:16px 45px;
 
 border:none;
 
-border-radius:60px;
-
-font-size:18px;
-
-font-weight:bold;
+border-radius:50px;
 
 cursor:pointer;
 
-background:linear-gradient(
+font-size:17px;
 
+font-weight:bold;
+
+background:
+linear-gradient(
 90deg,
-
 #ff00ff,
-
 #7b2cff
-
 );
 
 color:white;
@@ -184,22 +190,16 @@ color:white;
 transition:.35s;
 
 box-shadow:
-
-0 0 25px #c300ff;
+0 0 20px #b000ff;
 
 }
-
-/* ========================= */
 
 #enter:hover{
 
 transform:scale(1.08);
 
 box-shadow:
-
-0 0 40px #ff00ff,
-
-0 0 80px #7b2cff;
+0 0 35px #ff00ff;
 
 }
 
@@ -207,21 +207,28 @@ box-shadow:
    PARTICLES
 ========================= */
 
-.spark{
+#particles{
 
 position:fixed;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+
+}
+
+.spark{
+
+position:absolute;
 
 width:5px;
-
 height:5px;
 
 border-radius:50%;
 
-background:#ff66ff;
+background:#ff55ff;
 
-box-shadow:0 0 15px #ff00ff;
-
-pointer-events:none;
+box-shadow:
+0 0 15px #ff00ff;
 
 animation:float linear infinite;
 
@@ -233,7 +240,7 @@ animation:float linear infinite;
 
 0%{
 
-transform:translateY(100vh);
+transform:translateY(110vh);
 
 opacity:0;
 
@@ -263,7 +270,8 @@ from{
 
 opacity:0;
 
-transform:translate(-50%,-40%);
+transform:
+translate(-50%,-40%);
 
 }
 
@@ -271,7 +279,8 @@ to{
 
 opacity:1;
 
-transform:translate(-50%,-50%);
+transform:
+translate(-50%,-50%);
 
 }
 
@@ -291,15 +300,13 @@ padding:25px;
 
 .hero h1{
 
-font-size:34px;
+font-size:30px;
 
 }
 
-.hero p{
+.subtitle{
 
 font-size:15px;
-
-letter-spacing:1px;
 
 }
 
@@ -309,19 +316,9 @@ font-size:42px;
 
 }
 
-#date{
-
-font-size:15px;
-
-}
-
 #enter{
 
 width:100%;
-
-padding:15px;
-
-font-size:17px;
 
 }
 
