@@ -1,10 +1,12 @@
 const video = document.getElementById("video");
-const music = document.getElementById("music");
 const start = document.getElementById("start");
+const rotate = document.getElementById("rotate");
 const particles = document.getElementById("particles");
 
-// Buat partikel
-function createParticle(){
+let started = false;
+
+// Partikel
+function createParticle() {
 
     const p = document.createElement("div");
 
@@ -12,84 +14,78 @@ function createParticle(){
 
     p.style.left = Math.random() * window.innerWidth + "px";
 
-    const size = Math.random() * 6 + 4;
+    const size = Math.random() * 6 + 3;
 
     p.style.width = size + "px";
     p.style.height = size + "px";
 
-    p.style.animationDuration = (Math.random()*3+4)+"s";
+    p.style.animationDuration = (Math.random() * 4 + 4) + "s";
 
     particles.appendChild(p);
 
-    setTimeout(()=>{
-        p.remove();
-    },7000);
+    setTimeout(() => p.remove(), 8000);
 
 }
 
-setInterval(createParticle,120);
+setInterval(createParticle, 180);
 
-// Klik untuk mulai
-document.body.addEventListener("click", async ()=>{
+// Mulai website
+async function startWebsite() {
 
-    // Jangan mulai kalau masih portrait
-    if(window.innerHeight > window.innerWidth){
-        return;
-    }
+    if (started) return;
+
+    started = true;
 
     start.classList.add("hide");
 
-    try{
+    try {
 
         await video.play();
 
-        if(music){
-            await music.play();
-        }
+    } catch (e) {
 
-    }catch(e){
         console.log(e);
+
     }
 
-},{once:true});
+}
 
-// Loop video
-video.addEventListener("ended",()=>{
+document.body.addEventListener("click", startWebsite);
 
-    video.currentTime=0;
-    video.play();
+// Cek orientasi
+function updateOrientation() {
+
+    const portrait = window.matchMedia("(orientation: portrait)").matches;
+
+    if (portrait) {
+
+        rotate.style.display = "flex";
+
+        if (!video.paused) {
+
+            video.pause();
+
+        }
+
+    } else {
+
+        rotate.style.display = "none";
+
+        if (started && video.paused) {
+
+            video.play().catch(() => {});
+
+        }
+
+    }
+
+}
+
+window.addEventListener("resize", updateOrientation);
+window.addEventListener("orientationchange", () => {
+
+    setTimeout(updateOrientation, 250);
 
 });
 
-// Sinkron musik
-if(music){
-
-    setInterval(()=>{
-
-        if(Math.abs(video.currentTime-music.currentTime)>0.15){
-
-            music.currentTime=video.currentTime;
-
-        }
-
-    },200);
-
-}
-
-// Pause saat portrait
-function checkOrientation(){
-
-    if(window.innerHeight>window.innerWidth){
-
-        video.pause();
-
-        if(music) music.pause();
-
-    }
-
-}
-
-window.addEventListener("resize",checkOrientation);
-window.addEventListener("orientationchange",checkOrientation);
-
-checkOrientation();
+updateOrientation();
