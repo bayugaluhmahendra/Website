@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anime Player V7</title>
+<title>Anime Player V8</title>
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,38 +11,70 @@
 
 <!-- Loading -->
 <div id="loading">
-    <h1>ANIME EDIT</h1>
+    <div class="loader">
+        <h1>ANIME EDIT</h1>
 
-    <div class="progress">
-        <div class="bar"></div>
+        <div class="progress">
+            <div class="bar"></div>
+        </div>
+
+        <span id="percent">0%</span>
     </div>
-
-    <p id="percent">0%</p>
 </div>
 
-<!-- Tap Anywhere -->
+<!-- Start Screen -->
 <div id="start">
-    <h1>ANIME EDIT</h1>
-    <p>Tap Anywhere</p>
+    <div class="logo">
+        <h1>ANIME EDIT</h1>
+        <p>Tap Anywhere</p>
+    </div>
 </div>
 
 <!-- Video -->
 <video
 id="video"
+preload="auto"
 playsinline
 webkit-playsinline
-preload="auto"
 loop>
 
 <source src="video.mp4" type="video/mp4">
 
 </video>
 
-<div id="overlay"></div>
+<!-- Top Fade -->
+<div class="top-gradient"></div>
 
+<!-- Bottom Fade -->
+<div class="bottom-gradient"></div>
+
+<!-- Particle -->
 <div id="particles"></div>
+
+<!-- Control -->
+<div id="controls">
+
+<button id="playBtn">▶</button>
+
+<div id="seek">
+
+<div id="seekBar"></div>
+
+</div>
+
+<span id="time">
+00:00 / 00:00
+</span>
+
+<button id="fullscreen">
+
+⛶
+
+</button>
+
+</div>
 
 <script src="script.js"></script>
 
 </body>
-    </html>
+</html>
