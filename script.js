@@ -1,70 +1,124 @@
-const player = videojs('player', {
-    autoplay: false,
+ const player = videojs('player', {
     controls: true,
     preload: "auto",
-    responsive: true,
-    fluid: true
+    fluid: true,
+    responsive: true
 });
 
-const startScreen = document.getElementById("startScreen");
-const rotateScreen = document.getElementById("rotateScreen");
+const loading = document.getElementById("loading");
+const start = document.getElementById("start");
+const rotate = document.getElementById("rotate");
+const bar = document.querySelector(".bar");
+const percent = document.getElementById("percent");
+const particles = document.getElementById("particles");
 
 let started = false;
 
-// Klik sekali untuk mulai
+/* Loading Animation */
+let p = 0;
+
+const loadingAnim = setInterval(() => {
+
+    p++;
+
+    bar.style.width = p + "%";
+    percent.textContent = p + "%";
+
+    if (p >= 100) {
+
+        clearInterval(loadingAnim);
+
+        loading.classList.add("hide");
+
+    }
+
+}, 20);
+
+/* Tap Anywhere */
+
 document.addEventListener("click", async () => {
 
     if (started) return;
 
     started = true;
 
-    startScreen.classList.add("hide");
+    start.classList.add("hide");
 
     try {
+
         await player.play();
-    } catch (e) {
-        console.log(e);
-    }
+
+    } catch (e) {}
 
 }, { once: true });
 
-// Cek orientasi
-function updateOrientation() {
+/* Rotate */
 
-    const landscape = window.matchMedia("(orientation: landscape)").matches;
+function updateRotate() {
+
+    const landscape =
+        window.matchMedia("(orientation: landscape)").matches;
 
     if (landscape) {
 
-        rotateScreen.style.display = "none";
+        rotate.style.display = "none";
 
         if (started && player.paused()) {
+
             player.play().catch(() => {});
+
         }
 
     } else {
 
-        rotateScreen.style.display = "flex";
+        rotate.style.display = "flex";
 
         if (!player.paused()) {
+
             player.pause();
+
         }
 
     }
 
 }
 
-// Saat orientasi berubah
+window.addEventListener("resize", updateRotate);
 window.addEventListener("orientationchange", () => {
-    setTimeout(updateOrientation, 300);
+
+    setTimeout(updateRotate, 300);
+
 });
 
-window.addEventListener("resize", () => {
-    setTimeout(updateOrientation, 300);
-});
+updateRotate();
 
-updateOrientation();
+/* Particles */
 
-// Lanjutkan jika kembali ke tab
+function createParticle() {
+
+    const p = document.createElement("div");
+
+    p.className = "particle";
+
+    p.style.left = Math.random() * window.innerWidth + "px";
+
+    const size = Math.random() * 6 + 3;
+
+    p.style.width = size + "px";
+    p.style.height = size + "px";
+
+    p.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+    particles.appendChild(p);
+
+    p.addEventListener("animationend", () => p.remove());
+
+}
+
+setInterval(createParticle, 180);
+
+/* Tab Visibility */
+
 document.addEventListener("visibilitychange", () => {
 
     if (document.hidden) {
@@ -73,10 +127,13 @@ document.addEventListener("visibilitychange", () => {
 
     } else {
 
-        if (started && window.matchMedia("(orientation: landscape)").matches) {
+        if (started &&
+            window.matchMedia("(orientation: landscape)").matches) {
+
             player.play().catch(() => {});
+
         }
 
     }
 
-});
+});   
